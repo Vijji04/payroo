@@ -103,7 +103,7 @@ export const TimesheetEntries = ({ employeeId }: IEmployeeProps) => {
     };
     try {
       const response = await axios.post(
-        "http://localhost:8080/api/timesheet",
+        "https://payroo-xis8.onrender.com/api/timesheet",
         payload
       );
       alert("Time Sheet Submitted Successfully");
