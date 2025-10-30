@@ -4,7 +4,9 @@ import Modal from "@/customComponents/popover";
 import { useQuery } from "@tanstack/react-query";
 
 export async function getEmployeeData(): Promise<Employee[]> {
-  const response = await fetch("http://localhost:8080/api/employees");
+  const response = await fetch(
+    "https://payroo-xis8.onrender.com/api/employees"
+  );
   if (!response.ok) {
     throw new Error("Error fetching Data");
   }

@@ -52,7 +52,7 @@ function EmployeeForm() {
     try {
       const sanitizedData = sanitizeObject(data);
       const response = await axios.post(
-        "http://localhost:8080/api/employees",
+        "https://payroo-xis8.onrender.com/api/employees",
         sanitizedData
       );
 
