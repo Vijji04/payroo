@@ -48,7 +48,7 @@ export const PayrunInner = () => {
       if (!dateRange?.from || !dateRange?.to)
         throw new Error("Select a date range");
       const res = await axios.post<{ message: string; payrun: PayrunResponse }>(
-        "http://localhost:8080/api/payrun",
+        "http://localhost:8080/api/payruns",
         {
           periodStart: dateRange.from.toISOString().slice(0, 10),
           periodEnd: dateRange.to.toISOString().slice(0, 10),

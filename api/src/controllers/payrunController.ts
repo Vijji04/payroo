@@ -7,13 +7,11 @@ const prisma = new PrismaClient();
 export const createPayRun = async (req: Request, res: Response) => {
   try {
     const { periodStart, periodEnd } = req.body;
-
     if (!periodStart || !periodEnd) {
       return res
         .status(400)
         .json({ error: "Both periodStart and periodEnd are required" });
     }
-
     const startDate = new Date(periodStart);
     const endDate = new Date(periodEnd);
 
