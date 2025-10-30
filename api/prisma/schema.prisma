@@ -1,0 +1,77 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Employee {
+  id         String       @id @default(uuid())
+  firstName  String
+  lastName   String
+  type       EmployeeType
+  baseRate   Float
+  superRate  Float
+  bank       String
+  timesheets Timesheet[]
+  payslips   Payslip[]
+}
+
+model Timesheet {
+  id          String           @id @default(uuid())
+  employeeId  String
+  periodStart DateTime
+  periodEnd   DateTime
+  allowances  Float            @default(0)
+  entries     TimesheetEntry[]
+  employee    Employee         @relation(fields: [employeeId], references: [id])
+}
+
+model TimesheetEntry {
+  id              String    @id @default(uuid())
+  timesheetId     String
+  date            DateTime
+  start           String
+  end             String
+  unpaidBreakMins Int
+  timesheet       Timesheet @relation(fields: [timesheetId], references: [id])
+}
+
+enum EmployeeType {
+  hourly
+  salaried
+  contractor
+}
+
+model Payrun {
+  id          String    @id @default(uuid())
+  periodStart DateTime
+  periodEnd   DateTime
+  gross       Float
+  tax         Float
+  super       Float
+  net         Float
+  payslips    Payslip[]
+}
+
+model Payslip {
+  id            String   @id @default(uuid())
+  payrunId      String
+  employeeId    String
+  normalHours   Float
+  overtimeHours Float
+  gross         Float
+  tax           Float
+  super         Float
+  net           Float
+  payrun        Payrun   @relation(fields: [payrunId], references: [id])
+  employee      Employee @relation(fields: [employeeId], references: [id])
+}
