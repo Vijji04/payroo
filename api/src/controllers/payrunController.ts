@@ -1,18 +1,8 @@
-import { PrismaClient, Prisma } from "@prisma/client";
+import { PrismaClient } from "@prisma/client";
 import { Request, Response } from "express";
 import { calculatePayroll } from "../utils/payrollCalculations.js";
 
 const prisma = new PrismaClient();
-
-type EmployeeWithTimesheets = Prisma.EmployeeGetPayload<{
-  include: {
-    timesheets: {
-      include: {
-        entries: true;
-      };
-    };
-  };
-}>;
 
 export const createPayRun = async (req: Request, res: Response) => {
   try {
@@ -64,7 +54,7 @@ export const createPayRun = async (req: Request, res: Response) => {
     let totalSuper = 0;
     let totalNet = 0;
 
-    const paySlipsData = employees.map((employee: EmployeeWithTimesheets) => {
+    const paySlipsData = employees.map((employee) => {
       let totalHours = 0;
 
       // Aggregate total worked hours for the employee
@@ -109,7 +99,7 @@ export const createPayRun = async (req: Request, res: Response) => {
     });
 
     // Save payrun + payslips
-    const payrun = await prisma.$transaction(async (tx: Prisma.TransactionClient) => {
+    const payrun = await prisma.$transaction(async (tx) => {
       const newPayrun = await tx.payrun.create({
         data: {
           periodStart: startDate,
@@ -122,7 +112,7 @@ export const createPayRun = async (req: Request, res: Response) => {
       });
 
       await tx.payslip.createMany({
-        data: paySlipsData.map((p: typeof paySlipsData[0]) => ({
+        data: paySlipsData.map((p) => ({
           payrunId: newPayrun.id,
           employeeId: p.employeeId,
           normalHours: p.normalHours,

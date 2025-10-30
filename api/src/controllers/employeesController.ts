@@ -1,5 +1,4 @@
 import { PrismaClient } from "@prisma/client";
-import type { EmployeeType } from "@prisma/client";
 import { Request, Response } from "express";
 
 const prisma = new PrismaClient();
@@ -10,7 +9,7 @@ export const addEmployee = async (req: Request, res: Response) => {
       data: {
         firstName,
         lastName,
-        type: type as EmployeeType,
+        type,
         baseRate: parseFloat(baseRate),
         superRate: parseFloat(superRate),
         bank,
