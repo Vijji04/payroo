@@ -37,6 +37,7 @@ export const logger = {
       timestamp: new Date().toISOString(),
     };
     addLog(entry);
+    // eslint-disable-next-line no-console
     console.log(JSON.stringify(entry));
   },
   error: (msg: string, reqId?: string) => {

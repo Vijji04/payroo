@@ -36,15 +36,19 @@ jobs:
         working-directory: api
         run: npm test
 
-      # Run checks for the client (optional)
-      - name: Install Client dependencies
-        working-directory: client
+      # Run checks for the web (optional)
+      - name: Install Web dependencies
+        working-directory: web
         run: npm ci
 
-      - name: Lint Client
-        working-directory: client
+      - name: Lint Web
+        working-directory: web
         run: npm run lint --if-present
 
-      - name: Build Client
-        working-directory: client
+      - name: Typecheck Web
+        working-directory: web
+        run: npm run typecheck --if-present
+
+      - name: Build Web
+        working-directory: web
         run: npm run build --if-present

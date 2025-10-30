@@ -1,5 +1,9 @@
 import { Request, Response, NextFunction } from "express";
 
+interface AuthenticatedRequest extends Request {
+  user?: { token: string };
+}
+
 export function authMiddleware(
   req: Request,
   res: Response,
@@ -18,6 +22,6 @@ export function authMiddleware(
     return;
   }
 
-  (req as any).user = { token };
+  (req as AuthenticatedRequest).user = { token };
   next();
 }

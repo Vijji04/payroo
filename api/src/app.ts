@@ -14,7 +14,7 @@ app.use(express.json());
 
 app.use("/api/employees", employeeRoutes);
 app.use("/api/timesheet", timeSheetRoute);
-app.use("/api/payrun", payRunRoute);
+app.use("/api/payruns", payRunRoute);
 app.use("/api/metrics", metricsRoute);
 
 app.get("/", (_req, res) => res.json({ message: "Server is running!" }));

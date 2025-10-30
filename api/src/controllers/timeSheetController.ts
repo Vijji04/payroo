@@ -10,14 +10,6 @@ interface TimesheetEntryInput {
   unpaidBreakMins: number;
 }
 
-interface CreateTimesheetBody {
-  employeeId: string;
-  periodStart: string;
-  periodEnd: string;
-  allowances?: number;
-  entries: TimesheetEntryInput[];
-}
-
 export const createEmployeeTimeSheet = async (req: Request, res: Response) => {
   try {
     const { employeeId, periodStart, periodEnd, allowances, entries } =

@@ -2,14 +2,6 @@ import { EmployeeType, PrismaClient } from "@prisma/client";
 
 import { Request, Response } from "express";
 
-type EmployeeFormData = {
-  firstName: string;
-  lastName: string;
-  type: EmployeeType;
-  baseRate: number;
-  superRate: number;
-  bank: string;
-};
 const prisma = new PrismaClient();
 export const addEmployee = async (req: Request, res: Response) => {
   const { firstName, lastName, type, baseRate, superRate, bank } = req.body;
