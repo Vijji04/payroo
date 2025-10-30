@@ -12,4 +12,5 @@ module.exports = {
     "^(\\.{1,2}/.*)\\.js$": "$1",
   },
   extensionsToTreatAsEsm: [".ts"],
+  setupFiles: ["<rootDir>/jest.setup.cjs"],
 };

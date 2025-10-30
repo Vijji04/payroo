@@ -6,6 +6,14 @@ const prisma = new PrismaClient();
 
 describe("POST /api/payruns", () => {
   beforeAll(async () => {
+    // Clean up any existing test data first
+    await prisma.payslip.deleteMany({});
+    await prisma.payrun.deleteMany({});
+    await prisma.timesheetEntry.deleteMany({});
+    await prisma.timesheet.deleteMany({});
+    await prisma.employee.deleteMany({});
+
+    // Create test employee
     await prisma.employee.create({
       data: {
         firstName: "Alice",
@@ -34,6 +42,12 @@ describe("POST /api/payruns", () => {
   });
 
   afterAll(async () => {
+    // Clean up test data after tests
+    await prisma.payslip.deleteMany({});
+    await prisma.payrun.deleteMany({});
+    await prisma.timesheetEntry.deleteMany({});
+    await prisma.timesheet.deleteMany({});
+    await prisma.employee.deleteMany({});
     await prisma.$disconnect();
   });
 
