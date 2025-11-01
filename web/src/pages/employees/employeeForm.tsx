@@ -52,7 +52,7 @@ function EmployeeForm() {
     try {
       const sanitizedData = sanitizeObject(data);
       const response = await axios.post(
-        "https://payroo-xis8.onrender.com/api/employees",
+        `${import.meta.env.VITE_EMPLOYEE_URL}`,
         sanitizedData
       );
 
